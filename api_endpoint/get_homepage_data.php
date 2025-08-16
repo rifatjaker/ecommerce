@@ -1,24 +1,74 @@
 <?php
-// Allow from anywhere (or set to a specific origin)
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Methods: GET');
-// Allow specific headers
 header('Content-Type: application/json');
 
-// DB connection
-$pdo = new PDO("mysql:host=localhost;dbname=ihrbdtop_shahedsir_ecom;charset=utf8", "ihrbdtop_shahedsir_ecom", "kjErTzngXLdNqJLhnD6g");
+try {
+    $pdo = new PDO(
+        "mysql:host=localhost;dbname=ihrbdtop_shahedsir_ecom;charset=utf8",
+        "ihrbdtop_shahedsir_ecom",
+        "kjErTzngXLdNqJLhnD6g",
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
 
-// Get clubs
-$stmt = $pdo->query("SELECT id, name, logo, alt_name FROM clubs ORDER BY id ASC");
-$clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // --- Clubs ---
+    $stmt = $pdo->query("SELECT id, name, logo, alt_name FROM clubs ORDER BY id ASC");
+    $clubs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Get categories
-$stmt = $pdo->query("SELECT id, name, image, link, description FROM categories ORDER BY id ASC");
-$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // --- Categories ---
+    $stmt = $pdo->query("SELECT id, name, image, link, description FROM categories ORDER BY id ASC");
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Send combined JSON
-echo json_encode([
-    "clubs" => $clubs,
-    "categories" => $categories
-]);
+    // --- New Arrivals with gallery ---
+    $stmt = $pdo->query("
+        SELECT p.id, p.name, p.price, p.description, pi.image_url, pi.is_primary
+        FROM products p
+        LEFT JOIN product_images pi ON p.id = pi.product_id
+        WHERE p.status='active'
+        ORDER BY p.created_at DESC, pi.id ASC
+        LIMIT 20
+    ");
+
+    $products = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $id = $row['id'];
+
+        if (!isset($products[$id])) {
+            $products[$id] = [
+                'id' => $id,
+                'name' => $row['name'],
+                'price' => $row['price'],
+                'description' => $row['description'],
+                'image_url' => '', // primary image
+                'gallery' => []
+            ];
+        }
+
+        // Always push to gallery if image exists
+        if ($row['image_url']) {
+            $products[$id]['gallery'][] = $row['image_url'];
+
+            // Set primary image (first or marked primary)
+            if ($row['is_primary'] == 1 || $products[$id]['image_url'] == '') {
+                $products[$id]['image_url'] = $row['image_url'];
+            }
+        }
+    }
+
+    // Reindex array
+    $new_arrivals = array_values($products);
+
+    // --- JSON Response ---
+    echo json_encode([
+        "clubs" => $clubs,
+        "categories" => $categories,
+        "new_arrivals" => $new_arrivals
+    ]);
+
+} catch (Exception $e) {
+    echo json_encode([
+        "error" => true,
+        "message" => $e->getMessage()
+    ]);
+}
 ?>

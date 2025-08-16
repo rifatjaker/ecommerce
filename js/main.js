@@ -23,10 +23,13 @@ function filterProducts() {
 categoryFilter.addEventListener('change', filterProducts);
 searchInput.addEventListener('input', filterProducts);
 
+// -------------------------------------------------------------------------------------------------
 //---------------------------------- API END POINT -------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 
 const clubsContainer = document.getElementById('clubsContainer');
 const categoriesContainer = document.getElementById('categoriesContainer');
+const newArrivalsContainer = document.getElementById('newArrivalsContainer');
 
 // --- SKELETONS ---
 clubsContainer.innerHTML = `
@@ -49,6 +52,19 @@ categoriesContainer.innerHTML = `
         <div class="card-img-top skeleton" style="height:200px;"></div>
         <div class="card-body text-center">
           <div class="skeleton" style="height:20px; width:80%; margin:auto;"></div>
+        </div>
+      </div>
+    </div>
+  `).join('')}
+`;
+
+newArrivalsContainer.innerHTML = `
+  ${Array(4).fill().map(() => `
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-img-top skeleton" style="height:200px;"></div>
+        <div class="card-body text-center">
+          <div class="skeleton" style="height:20px; width:70%; margin:auto;"></div>
         </div>
       </div>
     </div>
@@ -95,5 +111,68 @@ fetch('https://ihr1.bd24.top/shahedsir_api_endpoint/get_homepage_data.php')
         </a>
       </div>
     `).join('');
+
+    // --- NEW ARRIVALS ---
+    newArrivalsContainer.innerHTML = data.new_arrivals.map(product => {
+      // Ensure gallery exists
+      const gallery = product.gallery && product.gallery.length ? product.gallery : [product.image_url];
+
+      return `
+      <div class="col-md-3 ">
+        <div class="card shadow-sm h-100 new-arrival-card">
+          <img src="${product.image_url}" data-bs-toggle="modal" data-bs-target="#productModal${product.id}" class="card-img-top img-fluid" style="object-fit: contain; height: 200px; cursor:pointer;" alt="${product.name}">
+          <div class="card-body text-center">
+            <h6 class="fw-semibold">${product.name}</h6>
+            <p class="text-muted mb-0">${Number(product.price).toLocaleString('en-BD')} Tk.</p>
+            <button class="btn btn-sm btn-outline-danger mt-2" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="productModal${product.id}" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">${product.name}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div id="carousel${product.id}" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    ${gallery.map((img, idx) => `
+                      <div class="carousel-item ${idx === 0 ? 'active' : ''}">
+                        <img src="${img}" class="d-block w-100" style="object-fit: contain; max-height:400px;" alt="${product.name}">
+                      </div>
+                    `).join('')}
+                  </div>
+
+                  <!-- Controls should be direct children of carousel, not inside carousel-inner -->
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carousel${product.id}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius:50%;"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carousel${product.id}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius:50%;"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+                <p class="mt-3">${product.description}</p>
+                <h5>${Number(product.price).toLocaleString('en-BD')} Tk.</h5>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Add to Cart</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      `;
+    }).join('');
   });
 
+// Example addToCart function
+function addToCart(id, name, price) {
+  console.log('Added to cart:', id, name, price);
+  // Here you can integrate your cart logic
+}
