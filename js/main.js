@@ -236,6 +236,12 @@ fetch('https://ihr1.bd24.top/shahedsir_api_endpoint/get_homepage_data.php')
         </div>
       `;
     }).join('');
+    filterProducts(); // Apply initial filter
+
+    // Assuming data.categories is an array of category names
+    const categoryFilter = document.getElementById('categoryFilter');
+    categoryFilter.innerHTML = '<option value="all">All Categories</option>' +
+    data.categories_filter.map(cat => `<option value="${cat.category}">${cat.category}</option>`).join('');
   });
 
 // Example addToCart function

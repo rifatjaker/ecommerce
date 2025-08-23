@@ -103,13 +103,21 @@ try {
     // Reindex array
     $product_list = array_values($productList);
 
+    // --- Filter Categories ---
+    $stmt = $pdo->query("SELECT DISTINCT c.name AS category
+    FROM products p
+    LEFT JOIN categories c ON p.category_id = c.id
+    WHERE p.status='active'");
+    $categoriesFilter = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     
     // --- JSON Response ---
     echo json_encode([
         "clubs" => $clubs,
         "categories" => $categories,
         "new_arrivals" => $new_arrivals,
-        "product_list" => $product_list
+        "product_list" => $product_list,
+        "categories_filter" => $categoriesFilter
     ]);
 
 } catch (Exception $e) {
