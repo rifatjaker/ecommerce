@@ -1,9 +1,6 @@
 html { scroll-behavior: smooth; }
 .category-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .category-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-.product-card img { height: 250px; object-fit: cover; }
-.product-card { transition: transform 0.3s ease; }
-.product-card:hover { transform: scale(1.03); }
 .hero-title {
     animation: fadeInDown 1s ease-out;
 }
@@ -121,6 +118,5 @@ section.py-7 {
   100% { background-position: -200% 0; }
 }
 
-
 .new-arrival-card { transition: transform 0.3s ease; }
-.new-arrival-card:hover { transform: scale(1.03); }}
+.new-arrival-card:hover { transform: scale(1.03); }

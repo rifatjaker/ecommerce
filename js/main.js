@@ -188,7 +188,7 @@ fetch('https://ihr1.bd24.top/shahedsir_api_endpoint/get_homepage_data.php')
       const gallery = product.gallery && product.gallery.length ? product.gallery : [product.image_url];
       return `
         <div class="col-md-3 product-card" data-category="${product.category.toLowerCase()}">
-          <div class="card shadow-sm h-100">
+          <div class="card shadow-sm h-100 new-arrival-card">
             <img src="${product.image_url}" data-bs-toggle="modal" data-bs-target="#productModalSearch${product.id}" class="card-img-top img-fluid" style="object-fit: contain; height: 200px; cursor:pointer;" alt="${product.name}">
             <div class="card-body text-center">
               <h6 class="fw-semibold">${product.name}</h6>
