@@ -184,7 +184,7 @@ fetch('https://ihr1.bd24.top/shahedsir_api_endpoint/get_homepage_data.php')
     }).join('');
 
     // --- PRODUCT LIST (Filter/Search Section) ---
-    productList.innerHTML = data.products.map(product => {
+    productList.innerHTML = data.product_list.map(product => {
       const gallery = product.gallery && product.gallery.length ? product.gallery : [product.image_url];
       return `
         <div class="col-md-3 product-card" data-category="${product.category.toLowerCase()}">
