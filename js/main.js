@@ -30,7 +30,6 @@ searchInput.addEventListener('input', filterProducts);
 const clubsContainer = document.getElementById('clubsContainer');
 const categoriesContainer = document.getElementById('categoriesContainer');
 const newArrivalsContainer = document.getElementById('newArrivalsContainer');
-const productList = document.getElementById('productList');
 
 // --- SKELETONS ---
 clubsContainer.innerHTML = `
