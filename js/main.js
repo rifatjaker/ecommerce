@@ -2,6 +2,12 @@
 const categoryFilter = document.getElementById('categoryFilter');
 const searchInput = document.getElementById('searchInput');
 const productList = document.getElementById('productList');
+const searchSuggestions = document.getElementById('searchSuggestions');
+
+// Typeahead search variables
+let allProducts = [];
+let currentFocus = -1;
+let searchTimeout;
 
 // Initial filter to show all products
 function filterProducts() {
@@ -19,9 +25,175 @@ function filterProducts() {
   });
 }
 
+// Load products for typeahead search
+async function loadProductsForSearch() {
+  try {
+    // Show loading state
+    searchInput.placeholder = 'Loading products...';
+    // Use the same API endpoint as the main data loading
+    const response = await fetch('https://ihr1.bd24.top/shahedsir_api_endpoint/get_homepage_data.php');
+    const data = await response.json();
+    allProducts = data.product_list || [];
+    // Reset placeholder
+    searchInput.placeholder = 'Search products...';
+  } catch (error) {
+    console.error('Failed to load products for search:', error);
+    searchInput.placeholder = 'Search products...';
+  }
+}
+
+// Filter products for typeahead suggestions
+function filterProductsForTypeahead(query) {
+  if (!query.trim()) return [];
+  
+  const searchTerm = query.toLowerCase();
+  return allProducts.filter(product => 
+    product.name.toLowerCase().includes(searchTerm) ||
+    product.category.toLowerCase().includes(searchTerm) ||
+    product.description.toLowerCase().includes(searchTerm)
+  ).slice(0, 8); // Limit to 8 suggestions
+}
+
+// Create suggestion item HTML
+function createSuggestionItem(product, query) {
+  const name = product.name;
+  const highlightedName = name.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
+  
+  return `
+    <div class="suggestion-item" data-product-id="${product.id}">
+      <div class="d-flex align-items-center">
+        <img src="${product.image_url}" 
+             alt="${product.name}" 
+             style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 12px;">
+        <div class="flex-grow-1">
+          <div class="suggestion-title">${highlightedName}</div>
+          <div class="suggestion-category text-muted small">${product.category} • ৳${product.price}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Show typeahead suggestions
+function showSuggestions(query) {
+  const filteredProducts = filterProductsForTypeahead(query);
+  
+  if (filteredProducts.length === 0) {
+    searchSuggestions.classList.add('d-none');
+    return;
+  }
+
+  const suggestionsHTML = filteredProducts.map(product => 
+    createSuggestionItem(product, query)
+  ).join('');
+
+  searchSuggestions.innerHTML = suggestionsHTML;
+  searchSuggestions.classList.remove('d-none');
+  currentFocus = -1;
+}
+
+// Hide suggestions
+function hideSuggestions() {
+  searchSuggestions.classList.add('d-none');
+  currentFocus = -1;
+}
+
+// Handle keyboard navigation
+function handleKeyNavigation(e) {
+  const items = searchSuggestions.querySelectorAll('.suggestion-item');
+  
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    currentFocus = (currentFocus + 1) % items.length;
+    updateActiveItem(items);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    currentFocus = currentFocus <= 0 ? items.length - 1 : currentFocus - 1;
+    updateActiveItem(items);
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (currentFocus >= 0 && items[currentFocus]) {
+      selectSuggestion(items[currentFocus]);
+    } else {
+      // Perform search with current input value
+      filterProducts();
+    }
+  } else if (e.key === 'Escape') {
+    hideSuggestions();
+  }
+}
+
+// Update active item in suggestions
+function updateActiveItem(items) {
+  items.forEach((item, index) => {
+    item.classList.toggle('active', index === currentFocus);
+  });
+}
+
+// Select a suggestion
+function selectSuggestion(suggestionItem) {
+  const productId = suggestionItem.dataset.productId;
+  const product = allProducts.find(p => p.id == productId);
+  
+  if (product) {
+    searchInput.value = product.name;
+    hideSuggestions();
+    filterProducts();
+  }
+}
+
+// Enhanced search input handler
+function handleSearchInput() {
+  const query = searchInput.value.trim();
+  
+  // Clear previous timeout
+  clearTimeout(searchTimeout);
+  
+  if (query.length < 2) {
+    hideSuggestions();
+    filterProducts(); // Still filter existing products
+    return;
+  }
+
+  // Debounce search to avoid too many API calls
+  searchTimeout = setTimeout(() => {
+    showSuggestions(query);
+  }, 300);
+}
+
 // Event listeners for filters
 categoryFilter.addEventListener('change', filterProducts);
-searchInput.addEventListener('input', filterProducts);
+searchInput.addEventListener('input', handleSearchInput);
+searchInput.addEventListener('keydown', handleKeyNavigation);
+
+searchInput.addEventListener('focus', function() {
+  const query = this.value.trim();
+  if (query.length >= 2) {
+    showSuggestions(query);
+  }
+});
+
+// Handle clicks outside search to hide suggestions
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+    hideSuggestions();
+  }
+});
+
+// Handle suggestion clicks
+if (searchSuggestions) {
+  searchSuggestions.addEventListener('click', function(e) {
+    const suggestionItem = e.target.closest('.suggestion-item');
+    if (suggestionItem) {
+      selectSuggestion(suggestionItem);
+    }
+  });
+}
+
+// Load products when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  loadProductsForSearch();
+});
 
 // -------------------------------------------------------------------------------------------------
 //---------------------------------- API END POINT -------------------------------------------------

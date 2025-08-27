@@ -3,119 +3,753 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Eyesome Sports Official Website - To provide the best quality cloths in reasonable price Retail and wholesale shop for baby and kids products, Clothes, Footwear, Nursing, Fashion & School accessories, Travel gears & Toys." />
-  <meta name="keywords" content="Eyesome Sports, Sportswear, Jerseys, Football, Cricket Bat, Sports Equipment, Online Shopping" />
+  <meta name="description" content="Eyesome Sports Official Website - Premium sports equipment, jerseys, and accessories. Quality products at competitive prices with nationwide delivery." />
+  <meta name="keywords" content="Eyesome Sports, Sportswear, Jerseys, Football, Cricket Bat, Sports Equipment, Online Shopping, Bangladesh" />
   <meta name="author" content="Eyesome Sports" />
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <title>Eyesome Sports Official Website</title>
+  <title>Eyesome Sports - Premium Sports Equipment & Sportswear</title>
+  
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
   <link href="css/styles.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #1e3c72;
+      --secondary-color: #2a5298;
+      --accent-color: #ffdd57;
+      --text-dark: #2c3e50;
+      --text-light: #6c757d;
+      --bg-light: #f8f9fa;
+      --shadow: 0 10px 30px rgba(0,0,0,0.1);
+      --shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+    }
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      line-height: 1.6;
+      color: var(--text-dark);
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background: rgba(30, 60, 114, 0.95) !important;
+      transition: all 0.3s ease;
+      padding: 1rem 0;
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    .navbar-nav .nav-link {
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 1rem !important;
+      margin: 0 0.25rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('banner.jpg') center/cover;
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .btn-hero {
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Cards */
+    .card {
+      border: none;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-img-top {
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-img-top {
+      transform: scale(1.05);
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    /* Product Cards */
+    .product-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--accent-color);
+      color: var(--text-dark);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    .product-actions {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover .product-actions {
+      opacity: 1;
+    }
+
+    .btn-action {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .btn-cart {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .btn-wishlist {
+      background: #dc3545;
+      color: white;
+    }
+
+    /* Category Cards */
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      height: 200px;
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .category-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      padding: 2rem 1.5rem 1.5rem;
+    }
+
+    /* Club Carousel */
+    .club-item {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .club-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .club-item:hover .club-logo {
+      transform: scale(1.1);
+    }
+
+    /* Brand Section */
+    .brand-logo {
+      height: 60px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: all 0.3s ease;
+      opacity: 0.6;
+    }
+
+    .brand-logo:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      font-size: 4rem;
+      color: var(--accent-color);
+      position: absolute;
+      top: -1rem;
+      left: 1rem;
+      font-family: serif;
+    }
+
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      background: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Newsletter */
+    .newsletter-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .newsletter-form {
+      position: relative;
+      z-index: 2;
+    }
+
+    .newsletter-input {
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .newsletter-btn {
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 2rem;
+      background: var(--accent-color);
+      color: var(--text-dark);
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .newsletter-btn:hover {
+      background: #ffed4e;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a1a1a;
+      color: white;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: #adb5bd;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .social-links a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--accent-color);
+      color: var(--text-dark);
+      transform: translateY(-3px);
+    }
+
+    /* Floating Cart */
+    .float-cart {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary-color);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .float-cart:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--accent-color);
+      color: var(--text-dark);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .navbar-brand {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Search Suggestions */
+    .search-suggestions {
+      position: absolute;
+      top: 100%; /* Position below the input group */
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      z-index: 100;
+      max-height: 200px; /* Limit height for suggestions */
+      overflow-y: auto;
+      display: none; /* Hidden by default */
+    }
+
+    .search-suggestions.show {
+      display: block;
+    }
+
+    .search-suggestions .suggestion-item {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .search-suggestions .suggestion-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .search-suggestions .suggestion-item.active {
+      background-color: #e0e0e0;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Navbar with fixed header -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-topz" style="background: linear-gradient(45deg, #1e3c72, #2a5298);">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#" style="font-size: 1.75rem; letter-spacing: 2px;">
-      <img src="es_logo.png" alt="Eyesome Sports Logo" style="max-height: 50px;" />Eyesome<span style="color: #ffdd57;">Sports</span>
+    <a class="navbar-brand" href="#">
+      <img src="es_logo.png" alt="Eyesome Sports Logo" style="height: 40px; margin-right: 10px;" />
+      Eyesome<span style="color: var(--accent-color);">Sports</span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link px-3" href="#clubs" style="transition: color 0.3s;">Favourite Club</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#featured-categories" style="transition: color 0.3s;">Categories</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#top-sale" style="transition: color 0.3s;">Top Sale</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#new-arrivals" style="transition: color 0.3s;">New Arrivals</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#product-video" style="transition: color 0.3s;">Videos</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#brands" style="transition: color 0.3s;">Brands</a></li>
-        <li class="nav-item"><a class="nav-link px-3" href="#testimonials" style="transition: color 0.3s;">Testimonials</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="#clubs">
+            <i class="fas fa-shield-alt"></i><span>Favourite Club</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#featured-categories">
+            <i class="fas fa-tags"></i><span>Categories</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#top-sale">
+            <i class="fas fa-fire"></i><span>Top Sale</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#new-arrivals">
+            <i class="fas fa-star"></i><span>New Arrivals</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#product-video">
+            <i class="fas fa-play-circle"></i><span>Videos</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#brands">
+            <i class="fas fa-crown"></i><span>Brands</span>
+          </a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#testimonials">
+            <i class="fas fa-comments"></i><span>Testimonials</span>
+          </a>
+        </li> -->
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Hero section -->
-<section class="py-7 text-center text-white position-relative" style="background: url('banner.jpg') no-repeat center center/contain; height: 100vh;">
-  <div class="container d-flex flex-column justify-content-center align-items-center h-100">
-    <!-- <h1 class="display-5 fw-bold text-uppercase" style="text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.9); letter-spacing: 2px;">
-      Welcome to <span style="color: #ffdd57;">Eyesome Sports</span>
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Welcome to <span style="color: var(--accent-color);">Eyesome Sports</span>
     </h1>
-    <p class="fs-5 mt-3" style="max-width: 700px; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);">
-      Discover a world of amazing products and unbeatable deals at your fingertips.
-    </p>
-    <a href="#shop-now" class="btn btn-primary btn-lg mt-5 px-5 py-3 shadow" style="font-size: 1.25rem; border-radius: 50px;">
-      Shop Now
-    </a> -->
+      <p class="hero-subtitle">
+        Discover premium sports equipment, jerseys, and accessories. Quality products at competitive prices with nationwide delivery.
+      </p>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="#featured-categories" class="btn btn-hero btn-primary">
+          <i class="fas fa-shopping-bag me-2"></i>Shop Now
+        </a>
+        <a href="#product-video" class="btn btn-hero btn-outline-light">
+          <i class="fas fa-play me-2"></i>Watch Video
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Shop Your Favourite Club Carousel -->
+<!-- Shop Your Favourite Club -->
 <section id="clubs" class="py-5 bg-light">
   <div class="container">
-    <h2 class="mb-5 text-center">Shop Your Favourite Club</h2>
+    <div class="section-header">
+      <h2 class="section-title">Shop Your Favourite Club</h2>
+      <p class="section-subtitle">Get official merchandise from your favorite sports clubs and teams</p>
+    </div>
+    
     <div id="clubsCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner" id="clubsContainer"></div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#clubsCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" style="filter: invert(0); background-color: #1e3c72; border-radius: 50%;"></span>
+      <div class="carousel-inner" id="clubsContainer">
+        <!-- Clubs will be loaded here -->
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#clubsCarousel" data-bs-slide="prev" aria-label="Previous">
+        <span class="carousel-control-prev-icon"></span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#clubsCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" style="filter: invert(0); background-color: #1e3c72; border-radius: 50%;"></span>
+      <button class="carousel-control-next" type="button" data-bs-target="#clubsCarousel" data-bs-slide="next" aria-label="Next">
+        <span class="carousel-control-next-icon"></span>
       </button>
     </div>
   </div>
 </section>
 
 <!-- Featured Categories -->
-<section id="featured-categories" class="py-5 bg-light">
+<section id="featured-categories" class="py-5">
   <div class="container">
-    <h2 class="mb-4 text-center">Featured Categories</h2>
+    <div class="section-header">
+      <h2 class="section-title">Featured Categories</h2>
+      <p class="section-subtitle">Explore our wide range of sports equipment and accessories</p>
+    </div>
+    
     <div class="row g-4" id="categoriesContainer">
-      <!-- Category cards will be rendered here by JS -->
+      <!-- Categories will be loaded here -->
     </div>
   </div>
 </section>
 
 <!-- Top Sale Products -->
-<section id="top-sale" class="py-5">
+<section id="top-sale" class="py-5 bg-light">
   <div class="container">
-    <h2 class="text-center mb-4">Top Sale Products</h2>
+    <div class="section-header">
+      <h2 class="section-title">Top Sale Products</h2>
+      <p class="section-subtitle">Our most popular products with amazing deals</p>
+    </div>
+    
     <div class="row g-4">
-      <div class="col-md-3">
-        <div class="card h-100 shadow">
+      <div class="col-lg-3 col-md-6">
+        <div class="card product-card h-100">
+          <div class="product-badge">Hot Sale</div>
           <img src="products/product5.jpg" class="card-img-top" alt="Wireless Earbuds">
-          <div class="card-body text-center">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Wireless Earbuds</h5>
-            <p>$59</p>
-            <button class="btn btn-success">Add to Cart</div>
+            <div class="card-price">৳5,900</div>
+            <p class="card-text text-muted">High-quality wireless earbuds with noise cancellation</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary w-100">
+                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+              </button>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-action btn-cart" title="Add to Cart">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-action btn-wishlist" title="Add to Wishlist">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card h-100 shadow">
+      
+      <div class="col-lg-3 col-md-6">
+        <div class="card product-card h-100">
+          <div class="product-badge">Best Seller</div>
           <img src="products/product1.jpg" class="card-img-top" alt="Smartwatch">
-          <div class="card-body text-center">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Smartwatch</h5>
-            <p>$149</p>
-            <button class="btn btn-success">Add to Cart</div>
+            <div class="card-price">৳14,900</div>
+            <p class="card-text text-muted">Feature-rich smartwatch with health monitoring</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary w-100">
+                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+              </button>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-action btn-cart" title="Add to Cart">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-action btn-wishlist" title="Add to Wishlist">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card h-100 shadow">
+      
+      <div class="col-lg-3 col-md-6">
+        <div class="card product-card h-100">
+          <div class="product-badge">New</div>
           <img src="products/product6.jpg" class="card-img-top" alt="Gaming Chair">
-          <div class="card-body text-center">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Gaming Chair</h5>
-            <p>$229</p>
-            <button class="btn btn-success">Add to Cart</div>
+            <div class="card-price">৳22,900</div>
+            <p class="card-text text-muted">Ergonomic gaming chair with lumbar support</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary w-100">
+                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+              </button>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-action btn-cart" title="Add to Cart">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-action btn-wishlist" title="Add to Wishlist">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="card h-100 shadow">
+      
+      <div class="col-lg-3 col-md-6">
+        <div class="card product-card h-100">
+          <div class="product-badge">Limited</div>
           <img src="products/product7.jpg" class="card-img-top" alt="Coffee Maker">
-          <div class="card-body text-center">
+          <div class="card-body d-flex flex-column">
             <h5 class="card-title">Coffee Maker</h5>
-            <p>$89</p>
-            <button class="btn btn-success">Add to Cart</div>
+            <div class="card-price">৳8,900</div>
+            <p class="card-text text-muted">Automatic coffee maker with timer</p>
+            <div class="mt-auto">
+              <button class="btn btn-primary w-100">
+                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+              </button>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="btn-action btn-cart" title="Add to Cart">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-action btn-wishlist" title="Add to Wishlist">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -123,39 +757,48 @@
 </section>
 
 <!-- New Arrivals -->
-<section id="new-arrivals" class="py-5 bg-light">
+<section id="new-arrivals" class="py-5">
   <div class="container">
-    <h2 class="text-center mb-4">New Arrivals</h2>
+    <div class="section-header">
+      <h2 class="section-title">New Arrivals</h2>
+      <p class="section-subtitle">Check out our latest products and stay ahead of the game</p>
+    </div>
+    
     <div class="row g-4" id="newArrivalsContainer">
-      <!-- Product cards will be rendered here by JS, like new arrivals -->
+      <!-- New arrivals will be loaded here -->
     </div>
   </div>
 </section>
 
 <!-- Product Filter/Search -->
-<section id="products" class="py-5">
+<section id="products" class="py-5 bg-light">
   <div class="container">
-    <h2 class="text-center mb-4">Browse Products</h2>
+    <div class="section-header">
+      <h2 class="section-title">Browse Products</h2>
+      <p class="section-subtitle">Find exactly what you're looking for with our advanced search and filter options</p>
+    </div>
+    
     <div class="row mb-4">
-      <div class="col-md-4">
-        <select class="form-select" id="categoryFilter">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <select class="form-select form-select-lg" id="categoryFilter" aria-label="Select category">
           <option value="all">All Categories</option>
-          <!-- Dynamically render categories from your API response -->
-          <!-- Example: -->
-          <!--
-          <option value="Jerseys">Jerseys</option>
-          <option value="Football">Football</option>
-          <option value="Cricket Bat">Cricket Bat</option>
-          <option value="Sports">Sports</option>
-          -->
         </select>
       </div>
-      <div class="col-md-8">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search products...">
+      <div class="col-lg-8 col-md-6 mb-3">
+        <div class="input-group input-group-lg position-relative">
+          <span class="input-group-text">
+            <i class="fas fa-search"></i>
+          </span>
+          <input type="text" id="searchInput" class="form-control" placeholder="Search products..." aria-label="Search products" autocomplete="off">
+          <div id="searchSuggestions" class="search-suggestions d-none">
+            <!-- Suggestions will be populated here -->
+          </div>
+        </div>
       </div>
     </div>
+    
     <div class="row g-4" id="productList">
-      <!-- Product cards will be rendered here by JS, like new arrivals -->
+      <!-- Products will be loaded here -->
     </div>
   </div>
 </section>
@@ -163,9 +806,22 @@
 <!-- Product Video Section -->
 <section id="product-video" class="py-5">
   <div class="container">
-    <h2 class="text-center mb-4">Product Showcase Video</h2>
-    <div class="video-container mx-auto" style="max-width:800px;">
-      <iframe src="https://www.facebook.com/plugins/video.php?height=373&href=https%3A%2F%2Fwww.facebook.com%2Feyesomesports%2Fvideos%2F996546995734169%2F&show_text=false&width=560&t=0" title="Product Video" frameborder="0" allowfullscreen></iframe>
+    <div class="section-header">
+      <h2 class="section-title">Product Showcase</h2>
+      <p class="section-subtitle">Watch our latest product demonstrations and reviews</p>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.facebook.com/plugins/video.php?height=373&href=https%3A%2F%2Fwww.facebook.com%2Feyesomesports%2Fvideos%2F996546995734169%2F&show_text=false&width=560&t=0" 
+                  title="Product Video" 
+                  frameborder="0" 
+                  allowfullscreen
+                  style="border-radius: 16px; box-shadow: var(--shadow);">
+          </iframe>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -173,11 +829,15 @@
 <!-- Brands Carousel -->
 <section id="brands" class="py-5 bg-light">
   <div class="container">
-    <h2 class="mb-4 text-center">Our Brands</h2>
+    <div class="section-header">
+      <h2 class="section-title">Our Trusted Brands</h2>
+      <p class="section-subtitle">We partner with the world's leading sports equipment manufacturers</p>
+    </div>
+    
     <div id="brandsCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <div class="row justify-content-center g-4">
+          <div class="row justify-content-center align-items-center g-4">
             <div class="col-6 col-md-3 text-center">
               <img src="brands/1.svg" class="brand-logo" alt="Brand 1">
             </div>
@@ -193,7 +853,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="row justify-content-center g-4">
+          <div class="row justify-content-center align-items-center g-4">
             <div class="col-6 col-md-3 text-center">
               <img src="brands/1.svg" class="brand-logo" alt="Brand 5">
             </div>
@@ -209,45 +869,47 @@
           </div>
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#brandsCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+      <button class="carousel-control-prev" type="button" data-bs-target="#brandsCarousel" data-bs-slide="prev" aria-label="Previous">
+        <span class="carousel-control-prev-icon"></span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#brandsCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+      <button class="carousel-control-next" type="button" data-bs-target="#brandsCarousel" data-bs-slide="next" aria-label="Next">
+        <span class="carousel-control-next-icon"></span>
       </button>
     </div>
   </div>
 </section>
 
 <!-- Testimonials -->
-<section id="testimonials" class="bg-light py-5">
+<section id="testimonials" class="py-5">
   <div class="container">
-    <h2 class="mb-4 text-center">What Our Customers Say</h2>
+    <div class="section-header">
+      <h2 class="section-title">What Our Customers Say</h2>
+      <p class="section-subtitle">Don't just take our word for it - hear from our satisfied customers</p>
+    </div>
+    
     <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card p-3">
-          <blockquote class="blockquote mb-0">
-            <p>Great quality products and fast delivery. Highly recommended!</p>
-            <footer class="blockquote-footer">Sarah M.</footer>
-          </blockquote>
+      <div class="col-lg-4 col-md-6">
+        <div class="testimonial-card h-100">
+          <div class="testimonial-avatar">SM</div>
+          <p class="mb-3">"Great quality products and fast delivery. The customer service is exceptional. Highly recommended!"</p>
+          <h6 class="mb-1">Sarah M.</h6>
+          <small class="text-muted">Regular Customer</small>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card p-3">
-          <blockquote class="blockquote mb-0">
-            <p>Easy to use website and amazing customer service.</p>
-            <footer class="blockquote-footer">John D.</footer>
-          </blockquote>
+      <div class="col-lg-4 col-md-6">
+        <div class="testimonial-card h-100">
+          <div class="testimonial-avatar">JD</div>
+          <p class="mb-3">"Easy to use website and amazing customer service. The product quality exceeded my expectations."</p>
+          <h6 class="mb-1">John D.</h6>
+          <small class="text-muted">Sports Enthusiast</small>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card p-3">
-          <blockquote class="blockquote mb-0">
-            <p>One of the best online shopping experiences I've had.</p>
-            <footer class="blockquote-footer">Emily W.</footer>
-          </blockquote>
+      <div class="col-lg-4 col-md-6">
+        <div class="testimonial-card h-100">
+          <div class="testimonial-avatar">EW</div>
+          <p class="mb-3">"One of the best online shopping experiences I've had. Fast shipping and excellent product quality."</p>
+          <h6 class="mb-1">Emily W.</h6>
+          <small class="text-muted">Fitness Trainer</small>
         </div>
       </div>
     </div>
@@ -255,96 +917,196 @@
 </section>
 
 <!-- Newsletter Signup -->
-<section class="py-5 position-relative text-center" style="background: linear-gradient(45deg, #1e3c72, #2a5298); overflow: hidden;">
+<section class="newsletter-section py-5 text-white">
   <div class="container">
-    <h2 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #ffffff;">Stay Updated</h2>
-    <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #ffffff;">Subscribe to our newsletter and never miss out on exclusive deals and new arrivals!</p>
-    <form class="row justify-content-center g-3" style="max-width: 700px; margin: 0 auto;">
-      <div class="col-12 col-md-8">
-        <input type="email" class="form-control" placeholder="Enter your email" style="padding: 0.75rem; border-radius: 30px; border: none; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="mb-3" style="font-size: 2.5rem; font-weight: 700;">Stay Updated</h2>
+        <p class="mb-4" style="font-size: 1.2rem; opacity: 0.9;">
+          Subscribe to our newsletter and never miss out on exclusive deals, new arrivals, and special offers!
+        </p>
+        
+        <form class="newsletter-form row g-3 justify-content-center">
+          <div class="col-md-8">
+            <input type="email" class="form-control newsletter-input" placeholder="Enter your email address" required>
       </div>
-      <div class="col-12 col-md-4">
-        <button type="submit" class="btn" style="padding: 0.75rem 2rem; border-radius: 30px; font-weight: bold; box-shadow: 0 3px 10px rgba(0,0,0,0.2); background: #ff7f50; color: #ffffff; border: none;">Subscribe</button>
+          <div class="col-md-4">
+            <button type="submit" class="btn newsletter-btn w-100">
+              <i class="fas fa-paper-plane me-2"></i>Subscribe
+            </button>
       </div>
     </form>
-    <div class="position-absolute" style="top: 10%; left: 10%; width: 120px; height: 120px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
-    <div class="position-absolute" style="bottom: 10%; right: 10%; width: 120px; height: 120px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;"></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- Footer -->
-<footer class="bg-dark text-white py-5">
+<footer class="footer py-5">
   <div class="container">
-    <div class="row align-items-center">
-      <!-- Left Side -->
-      <div class="col-md-6 text-md-start text-center mb-4 mb-md-0">
-        <div class="d-flex align-items-center mb-3 justify-content-md-start justify-content-center">
-          <img src="favicon.ico" alt="Eyesome Sports Logo" style="height:48px; margin-right:16px;">
-          <span class="fs-4 fw-bold">Eyesome Sports</span>
+    <div class="row g-4">
+      <!-- Company Info -->
+      <div class="col-lg-4 col-md-6">
+        <div class="footer-logo">
+          <img src="favicon.ico" alt="Eyesome Sports Logo" style="height: 40px; margin-right: 10px;" />
+          Eyesome Sports
         </div>
-        <address class="mb-2" style="font-style:normal;">
-          <strong>Shop Address:</strong><br>
-          Shop no: 264-265, New Super Market,<br>
-          New Market Backside Road,<br>
-          Dhaka 1205, Dhaka, Bangladesh
-        </address>
-        <div class="mb-2">
-          <strong>Email:</strong>
-          <a href="mailto:eyesomebd@gmail.com" class="text-white text-decoration-underline">eyesomebd@gmail.com</a>
-        </div>
-        <div class="mb-2">
-          <strong>Contact:</strong>
-          <a href="tel:+8801679600037" class="text-white text-decoration-underline">+8801679-600037</a>
-        </div>
-        <nav class="mb-2">
-          <a href="#featured-categories" class="text-white me-3 text-decoration-underline">Categories</a>
-          <a href="#top-sale" class="text-white me-3 text-decoration-underline">Top Sale</a>
-          <a href="#new-arrivals" class="text-white me-3 text-decoration-underline">New Arrivals</a>
-          <a href="#brands" class="text-white me-3 text-decoration-underline">Brands</a>
-          <a href="#testimonials" class="text-white text-decoration-underline">Testimonials</a>
-        </nav>
-        <div class="mb-2">
-          <a href="/privacy-policy.html" class="text-white text-decoration-underline me-3">Privacy Policy</a>
-          <a href="/terms.html" class="text-white text-decoration-underline">Terms & Conditions</a>
+        <p class="mb-3" style="color: #adb5bd;">
+          Your trusted partner for premium sports equipment and accessories. Quality products at competitive prices.
+        </p>
+        <div class="social-links">
+          <a href="https://facebook.com/eyesomesports" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://instagram.com/eyesomesports" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://wa.me/8801679600037" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
         </div>
       </div>
-      <!-- Right Side -->
-      <div class="col-md-6 text-md-end text-center">
-        <div class="mb-3" style="max-width:350px; margin-left:auto; margin-right:auto;">
+      
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-6">
+        <h6 class="mb-3" style="color: var(--accent-color);">Quick Links</h6>
+        <ul class="list-unstyled footer-links">
+          <li><a href="#featured-categories">Categories</a></li>
+          <li><a href="#top-sale">Top Sale</a></li>
+          <li><a href="#new-arrivals">New Arrivals</a></li>
+          <li><a href="#brands">Brands</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+        </div>
+      
+      <!-- Contact Info -->
+      <div class="col-lg-3 col-md-6">
+        <h6 class="mb-3" style="color: var(--accent-color);">Contact Info</h6>
+        <div class="footer-links">
+          <p class="mb-2">
+            <i class="fas fa-map-marker-alt me-2"></i>
+              Shop no: 264-265, New Super Market,<br>
+              New Market Backside Road,<br>
+              Dhaka 1205, Bangladesh
+          </p>
+          <p class="mb-2">
+            <i class="fas fa-envelope me-2"></i>
+            <a href="mailto:eyesomebd@gmail.com">eyesomebd@gmail.com</a>
+          </p>
+          <p class="mb-2">
+            <i class="fas fa-phone me-2"></i>
+            <a href="tel:+8801679600037">+8801679-600037</a>
+          </p>
+        </div>
+      </div>
+      
+      <!-- Map -->
+      <div class="col-lg-3 col-md-6">
+        <h6 class="mb-3" style="color: var(--accent-color);">Our Location</h6>
+        <div class="ratio ratio-1x1">
           <iframe
             src="https://www.google.com/maps?q=Shop+no:+264-265,+New+Super+Market,+New+Market+Backside+Road,+Dhaka+1205,+Dhaka,+Bangladesh&output=embed"
-            width="100%" height="200" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            title="Shop Location"></iframe>
-        </div>
-        <div class="mb-3">
-          <a href="https://facebook.com/eyesomesports" target="_blank" class="mx-2" aria-label="Facebook">
-            <img src="https://img.icons8.com/color/40/facebook-new.png" alt="Facebook" style="transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"/>
-          </a>
-          <a href="https://instagram.com/eyesomesports" target="_blank" class="mx-2" aria-label="Instagram">
-            <img src="https://img.icons8.com/color/40/instagram-new.png" alt="Instagram" style="transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"/>
-          </a>
-          <a href="https://wa.me/8801812345678" target="_blank" class="mx-2" aria-label="WhatsApp">
-            <img src="https://img.icons8.com/color/40/whatsapp.png" alt="WhatsApp" style="transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"/>
-          </a>
+            style="border:0; border-radius: 12px;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Shop Location">
+          </iframe>
         </div>
       </div>
     </div>
+    
     <hr class="border-secondary my-4">
-    <div class="text-center small">
+    
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center text-md-start">
+        <small class="text-muted">
       &copy; 2025 Eyesome Sports. All rights reserved.
+        </small>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <small class="text-muted">
+          <a href="/privacy-policy.html" class="text-decoration-none me-3">Privacy Policy</a>
+          <a href="/terms.html" class="text-decoration-none">Terms & Conditions</a>
+        </small>
+      </div>
     </div>
   </div>
 </footer>
 
-<!-- Scripts Library -->
+<!-- Floating Shopping Cart -->
+<a href="/cart.html" class="float-cart" aria-label="Shopping Cart">
+  <i class="fas fa-shopping-cart"></i>
+  <span class="cart-count" id="cartCount">0</span>
+</a>
+
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="js/main.js"></script>
 
-<!-- float shopping cart button -->
-<a href="/cart.html" class="float-cart" aria-label="Shopping Cart">
-  <img src="shopping-cart.png" alt="Shopping Cart" style="width:40px;height:40px;" />
-  <span class="cart-count" id="cartCount">0</span>
-</a>
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+      navbar.style.background = 'rgba(30, 60, 114, 0.98)';
+      navbar.style.padding = '0.5rem 0';
+    } else {
+      navbar.style.background = 'rgba(30, 60, 114, 0.95)';
+      navbar.style.padding = '1rem 0';
+    }
+  });
+
+  // Smooth scrolling for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Newsletter form submission
+  document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = this.querySelector('input[type="email"]').value;
+    if (email) {
+      // Show success message
+      alert('Thank you for subscribing! You will receive updates soon.');
+      this.reset();
+    }
+  });
+
+  // Product card hover effects
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-8px)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0)';
+    });
+  });
+
+  // Placeholder functions for cart and wishlist
+  function addToCart(productId) {
+    // TODO: Implement cart functionality
+    console.log('Adding product to cart:', productId);
+    alert('Product added to cart! (Demo function)');
+  }
+
+  function addToWishlist(productId) {
+    // TODO: Implement wishlist functionality
+    console.log('Adding product to wishlist:', productId);
+    alert('Product added to wishlist! (Demo function)');
+  }
+</script>
+
 </body>
 </html>
